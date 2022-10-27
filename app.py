@@ -1,4 +1,3 @@
-from traitlets import default
 import streamlit as st
 import pandas as pd
 import requests
@@ -35,11 +34,24 @@ def _max_width_():
     max_width_str = f"max-width: 2400px;"
     st.markdown(
         f"""
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
     .reportview-container .main .block-container{{
         {max_width_str}
-    }}
-    </style>    
+    }}""" +
+    """
+    @font-face {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-style: normal;
+        src: url(assets/fonts/myfont.tff) format('truetype');;
+    }
+    .sidebar-text{
+        font-family: 'Roboto', sans-serif;
+    }
+    .standard-text{
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    </style>
     """,
         unsafe_allow_html=True,
     )
