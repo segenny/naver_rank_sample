@@ -1,3 +1,4 @@
+from traitlets import default
 import streamlit as st
 import pandas as pd
 import requests
@@ -8,7 +9,27 @@ import os
 st.set_page_config(
     page_title="네이버 순위 추적",
     page_icon="🔢 ",
+    layout="wide"
 )
+
+def style():
+    css = """
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+    @font-face {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-style: normal;
+        src: url(assets/fonts/myfont.tff) format('truetype');;
+    }
+    .sidebar-text{
+        font-family: 'Roboto', sans-serif;
+    }
+    .standard-text{
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    </style>
+    """
+    st.markdown(css,unsafe_allow_html=True)
 
 def _max_width_():
     max_width_str = f"max-width: 2400px;"
@@ -26,8 +47,8 @@ def _max_width_():
 def getNRank(keyword, my_mall, max_page=5, find_all='y'):
 
     ################################################################
-    max_page = 5    # 한 페이지에 40 상품
-    find_all = 'y'    # y 하면 max_page 내 모든 순위 찾음, n 하면 1위만 찾음
+    #max_page = 5    # 한 페이지에 40 상품
+    #find_all = 'y'    # y 하면 max_page 내 모든 순위 찾음, n 하면 1위만 찾음
     ################################################################
 
     header_text = """
@@ -115,21 +136,36 @@ def getNRank(keyword, my_mall, max_page=5, find_all='y'):
 
 _max_width_()
 
+style()
+
 st.title("🔢 네이버 순위 추적")
 
-검색키워드 = st.text_input('검색키워드를 입력 해 주세요', placeholder='예) 캠핑')
-if 검색키워드:
-    st.write('검색 키워드 :', 검색키워드)
-
-
-회사명 = st.text_input('회사명을 입력 해 주세요', placeholder='예) 회사명')
-if 회사명:
-    st.write('회사 : ', 회사명)
-
 #st.markdown("")
-#with st.form(key="my_form"):
-#    submit_button = st.form_submit_button(label="✨ Get me the data!")
+with st.form(key="my_form"):
 
-if 검색키워드 and 회사명: 
-    st.markdown("## 결과") 
-    getNRank(검색키워드, 회사명)
+    cols = st.columns((1, 1))
+    검색키워드 = cols[0].text_input('검색키워드를 입력 해 주세요', placeholder='예) 캠핑')
+    if 검색키워드:
+        st.write('검색 키워드 :', 검색키워드)
+
+    회사명 = cols[1].text_input('회사명을 입력 해 주세요', placeholder='예) 회사명')
+    if 회사명:
+        st.write('회사 : ', 회사명)
+
+    cols = st.columns((1, 1))
+    find_all = cols[1].checkbox(
+            "전체 검색",
+            value=False,
+            help="전체 검색",
+        )
+    max_page = cols[0].number_input(
+        "Minimum Ngram",
+        min_value=1,
+        max_value=100,
+        help="""The minimum value for the ngram range.""", value = 5)
+
+    submit_button = st.form_submit_button(label="✨ 순위 알아보기")
+    if submit_button:
+       if 검색키워드 and 회사명: 
+           st.markdown("## 결과")
+           getNRank(검색키워드, 회사명, max_page, "y" if find_all == False else "n")
