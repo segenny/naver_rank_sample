@@ -161,7 +161,7 @@ with st.form(key="my_form"):
     if 검색키워드:
         st.write('검색 키워드 :', 검색키워드)
 
-    회사명 = cols[1].text_input('회사명을 입력 해 주세요', placeholder='예) 회사명')
+    회사명 = cols[1].text_input('회사명을 입력 해 주세요', placeholder='예) 회사명', value="KT알파쇼핑")
     if 회사명:
         st.write('회사 : ', 회사명)
 
