@@ -172,7 +172,7 @@ with st.form(key="my_form"):
             help="전체 검색",
         )
     max_page = cols[0].number_input(
-        "Minimum Ngram",
+        "페이징 수",
         min_value=1,
         max_value=100,
         help="""The minimum value for the ngram range.""", value = 5)
