@@ -6,7 +6,7 @@ import json
 import os
 
 st.set_page_config(
-    page_title="네이버 순위 추적",
+    page_title="네이버 순위 추적 💕",
     page_icon="🔢 ",
     layout="wide"
 )
