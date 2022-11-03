@@ -180,5 +180,5 @@ with st.form(key="my_form"):
     submit_button = st.form_submit_button(label="✨ 순위 알아보기")
     if submit_button:
        if 검색키워드 and 회사명: 
-           st.markdown("## 결과")3
+           st.markdown("## 결과")
            getNRank(검색키워드, 회사명, max_page, "y")
