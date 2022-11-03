@@ -57,7 +57,7 @@ def _max_width_():
         unsafe_allow_html=True,
     )
 
-def getNRank(keyword, my_mall, max_page=5, find_all='y'):
+def getNRank(keyword, my_mall, max_page, find_all):
 
     ################################################################
     #max_page = 5    # 한 페이지에 40 상품
@@ -166,19 +166,19 @@ with st.form(key="my_form"):
         st.write('회사 : ', 회사명)
 
     cols = st.columns((1, 1))
-    find_all = cols[1].checkbox(
-            "전체 검색",
-            value=False,
-            help="전체 검색",
-        )
+    # find_all = cols[1].checkbox(
+    #         "전체 검색",
+    #         value=False,
+    #         help="첫번째",
+    #     )
     max_page = cols[0].number_input(
         "페이징 수",
         min_value=1,
         max_value=100,
-        help="""The minimum value for the ngram range.""", value = 5)
+        help="""The minimum value for the page range.""", value = 5)
 
     submit_button = st.form_submit_button(label="✨ 순위 알아보기")
     if submit_button:
        if 검색키워드 and 회사명: 
-           st.markdown("## 결과")
-           getNRank(검색키워드, 회사명, max_page, "y" if find_all == False else "n")
+           st.markdown("## 결과")3
+           getNRank(검색키워드, 회사명, max_page, "y")
