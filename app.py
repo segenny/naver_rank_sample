@@ -110,7 +110,6 @@ def getNRank(keyword, my_mall, max_page, find_all):
                             if my_mall in str(result_json['shoppingResult']['products'][i]['lowMallList']):
                                 st.write(my_mall, str(result_json['shoppingResult']['products'][i]['rank']) + '위', result_json['shoppingResult']['products'][i]['productTitle'])
                                 상태 = '찾음'
-                                break
                             else:
                                 pass
                         except:
